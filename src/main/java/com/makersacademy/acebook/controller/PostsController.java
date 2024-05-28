@@ -1,6 +1,8 @@
 package com.makersacademy.acebook.controller;
 
+import com.makersacademy.acebook.model.Comment;
 import com.makersacademy.acebook.model.Post;
+import com.makersacademy.acebook.repository.ICommentRepository;
 import com.makersacademy.acebook.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,11 +18,18 @@ public class PostsController {
     @Autowired
     PostRepository repository;
 
+    @Autowired
+    ICommentRepository commentRepository;
+
     @GetMapping("/posts")
     public String index(Model model) {
         Iterable<Post> posts = repository.findAll();
         model.addAttribute("posts", posts);
         model.addAttribute("post", new Post());
+
+        Iterable<Comment> comments = commentRepository.findAll();
+        model.addAttribute("comments", comments);
+        model.addAttribute("comment", new Comment());
         return "posts/index";
     }
 
