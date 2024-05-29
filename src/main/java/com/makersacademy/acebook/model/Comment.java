@@ -17,6 +17,8 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id; // Todo update Schema to BIGSERIAL and this type to long
     private String content;
+    private Long post_id;
+    private Long user_id;
 
     public Comment() {}
 
