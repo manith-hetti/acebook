@@ -17,7 +17,7 @@ public class Comment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id; // Todo update Schema to BIGSERIAL and this type to long
+    private Long id; // Todo update Schema to BIGSERIAL and this type to long
     @Getter  @Setter private String content;
     private Long user_id;
 
