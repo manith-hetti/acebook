@@ -1,13 +1,12 @@
 package com.makersacademy.acebook.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.GenerationType;
+import javax.persistence.*;
+
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
 
 @Data
 @Entity
@@ -22,6 +21,9 @@ public class Post {
     private Long id;
     private String content;
     private Integer likeCount = 0;
+
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @Getter @Setter private List<Comment> comments;
 
     // No-args constructor
     public Post() {}

@@ -22,7 +22,6 @@ public class User {
     private boolean enabled;
 
     public User() {
-        this.enabled = TRUE;
     }
 
     public User(String username, String password) {

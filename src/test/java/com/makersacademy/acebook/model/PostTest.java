@@ -51,7 +51,7 @@ public class PostTest {
 	@Test
 	public void signInViewPost() {
 		driver.get("http://localhost:8080/login");
-		driver.findElement(By.id("username")).sendKeys("Noah");
+		driver.findElement(By.id("username")).sendKeys("manith2");
 		driver.findElement(By.id("password")).sendKeys("password");
 		driver.findElement(By.tagName("button")).click();
 		WebElement element = driver.findElement(By.tagName("ul"));
