@@ -35,7 +35,6 @@ public class PostsController {
     public RedirectView like(@RequestParam("postId") Long postId) {
         Optional<Post> postOptional = repository.findById(postId);
         Post post = postOptional.get();
-        System.out.println(post);
         post.incrementLikeCount();
         repository.save(post);
         return new RedirectView("/posts");

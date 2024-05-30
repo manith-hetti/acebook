@@ -6,6 +6,7 @@ import static org.junit.Assert.*;
 import com.github.javafaker.Faker;
 import com.makersacademy.acebook.Application;
 import com.makersacademy.acebook.repository.PostRepository;
+import org.flywaydb.core.Flyway;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -19,28 +20,33 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.time.Duration;
-import java.util.ArrayList;
-import java.util.List;
+
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = Application.class)
+@SpringBootTest(classes = Application.class, properties="spring.flyway.clean-disabled=false")
+@ActiveProfiles("test")
 public class PostTest {
 
 	private Post post = new Post("hello");
 	@Autowired
 	private PostRepository postRepository;
 
-	WebDriver driver;
-	Faker faker;
+	static WebDriver driver;
+	static Faker faker;
+	@Autowired Flyway flyway;
 
 	@Before
 	public void setup() {
 		System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
 		driver = new ChromeDriver();
 		faker = new Faker();
+		flyway.setCleanDisabled(false);
+		flyway.clean();
+		flyway.migrate();
 	}
 
 	@After
@@ -48,22 +54,27 @@ public class PostTest {
 		driver.close();
 	}
 
+
+	public WebDriver getDriver() {
+		return driver;
+	}
+
 	@Test
 	public void signInViewPost() {
 		driver.get("http://localhost:8080/login");
-		driver.findElement(By.id("username")).sendKeys("Noah");
-		driver.findElement(By.id("password")).sendKeys("password");
+		driver.findElement(By.id("username")).sendKeys("johndoe");
+		driver.findElement(By.id("password")).sendKeys("password123");
 		driver.findElement(By.tagName("button")).click();
 		WebElement element = driver.findElement(By.tagName("ul"));
-		Assert.assertEquals("Welcome!\nLikes: 11\nLike", element.getText());
+		Assert.assertEquals("This is my first post!\nLikes: 15\nLike", element.getText());
 	}
 
 	@Test
 	public void signInCreatePostCheckLikesIs0() {
 		driver.get("http://localhost:8080/login");
 		// Login
-		driver.findElement(By.id("username")).sendKeys("Noah");
-		driver.findElement(By.id("password")).sendKeys("password");
+		driver.findElement(By.id("username")).sendKeys("johndoe");
+		driver.findElement(By.id("password")).sendKeys("password123");
 		driver.findElement(By.tagName("button")).click();
 
 		// Create a new post
@@ -97,7 +108,7 @@ public class PostTest {
 		Assert.assertEquals("Likes: 1", updatedLikesText);
 
 		// Clean up the test post
-		postRepository.deleteTestPost();
+//		postRepository.deleteTestPost();
 	}
 
 	@Test
