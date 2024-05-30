@@ -44,7 +44,6 @@ public class PostTest {
 		System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
 		driver = new ChromeDriver();
 		faker = new Faker();
-		flyway.setCleanDisabled(false);
 		flyway.clean();
 		flyway.migrate();
 	}

@@ -22,7 +22,7 @@
             <plugin>
                 <groupId>org.flywaydb</groupId>
                 <artifactId>flyway-maven-plugin</artifactId>
-                <version>8.5.13</version>
+                <version>10.13.0</version>
                 <configuration>
                     <url>jdbc:postgresql://localhost:5432/acebook_springboot_test</url>
                     <locations>
@@ -115,6 +115,7 @@
         <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
+            <version>10.13.0</version>
         </dependency>
         <dependency>
             <groupId>com.cloudinary</groupId>
