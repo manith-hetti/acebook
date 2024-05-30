@@ -1,1 +1,0 @@
-ALTER TABLE posts ADD like_count INTEGER;
