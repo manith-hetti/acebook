@@ -19,19 +19,19 @@
 <script type="text/javascript">
 
 	var myWidget = cloudinary.createUploadWidget({
-				cloudName: 'dk3vxa56n',
-				uploadPreset: 'test_preset'}, (error, result) => {
-				if (!error && result && result.event === "success") {
-					console.log('Done! Here is the image info: ', result.info);
-					document.getElementById("imageInfoInput").value = JSON.stringify(result.info);
-				}
-			}
+		cloudName: 'dk3vxa56n',
+		uploadPreset: 'test_preset'}, (error, result) => {
+		if (!error && result && result.event === "success") {
+			console.log('Done! Here is the image info: ', result.info);
+			document.getElementById("imageInfoInput").value = JSON.stringify(result.info);
+		}
+	}
 	)
 
 	document.getElementById("upload_widget").addEventListener("click", function(){
 		myWidget.open();
 	}, false);
 </script>
-<img th:src="${thumbnail_url}">
+<img th:src="${thumbnail_url}" alt="An uploaded image">
 </body>
 </html>
